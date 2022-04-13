@@ -33,48 +33,48 @@ class App extends Component {
         const web3 = window.web3
         const account = await web3.eth.getAccounts()
         this.setState({account : account[0]})
-        console.log(account[0],'account')
+        //console.log(account[0],'account')
 
         //set network file to 5777
         const networkId = await web3.eth.net.getId()
-        console.log(networkId,'network id')
+        //console.log(networkId,'network id')
 
         //load tether contract and set to the state of tether
         //if we can get the network so we can bring in contract for the network
         const tetherData = Tether.networks[networkId] //tetherdata is gonna be networkid
-        console.log(tetherData,'tetherData')
+        //console.log(tetherData,'tetherData')
         if(tetherData) {
             const tether = new web3.eth.Contract(Tether.abi , tetherData.address)
             this.setState({tether}) //tether is the permenant info of the contract
-            /*let tetherBalance = await tether.methods.balanceOf(this.state.account).call() // call cuz of methods
+            const tetherBalance = await tether.methods.balanceOf(this.state.account).call() // call cuz of methods
             this.setState({tetherBalance : tetherBalance.toString()})
-            console.log(tetherBalance)*/
+            console.log(tetherBalance)
         } else {
             window.alert('Error! Tether contract was not deployed - no detected network!')
         }
 
         //loading RWD contract
         const rwdData = RWD.networks[networkId] //rwdData is gonna be networkid
-        console.log(rwdData,'rwdData')
+        //console.log(rwdData,'rwdData')
         if(rwdData) {
             const rwd = new web3.eth.Contract(RWD.abi , rwdData.address)
             this.setState({rwd}) //tether is the permenant info of the contract
-            /*let rewardBalance = await rwd.methods.balanceOf(this.state.account).call() // call cuz of methods
+            const rewardBalance = await rwd.methods.balanceOf(this.state.account).call() // call cuz of methods
             this.setState({rewardBalance : rewardBalance.toString()})
-            console.log(rewardBalance)*/
+            console.log(rewardBalance)
         } else {
             window.alert('Error! rwd contract was not deployed - no detected network!')
         }
 
         //loading DecentralBank contract
         const decentralbankData = DecentralBank.networks[networkId] //decentralbankData is gonna be networkid
-        console.log(decentralbankData,'decentralbankData')
+        //console.log(decentralbankData,'decentralbankData')
         if(decentralbankData) {
             const decentralbank = new web3.eth.Contract(DecentralBank.abi , decentralbankData.address)
             this.setState({decentralbank}) //tether is the permenant info of the contract
-            /*let stakingBalance = await decentralbank.methods.stakingBalance(this.state.account).call() // call cuz of methods
+            const stakingBalance = await decentralbank.methods.stakingBalance(this.state.account).call() // call cuz of methods
             this.setState({stakingBalance : stakingBalance.toString()})
-            console.log(stakingBalance)*/
+            console.log(stakingBalance)
         } else {
             window.alert('Error! decentralbank contract was not deployed - no detected network!')
         }
